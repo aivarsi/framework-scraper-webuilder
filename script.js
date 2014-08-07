@@ -42,6 +42,7 @@ function CreateWebkit(Callback) {
      web.Subscribe("Framework Scraper Add Func", &OnWebkitData);
      web.Subscribe("Framework Scraper Add Class", &OnWebkitData);
      web.Subscribe("Framework Scraper Add Method", &OnWebkitData);
+     web.Subscribe("Framework Scraper Add Field", &OnWebkitData);
      web.OnLoadEnd = &OnWebkitLoadEnd;
      web.OnConsoleMessage = &OnWebkitConsoleMessage;
      Created = true;
@@ -60,6 +61,9 @@ function OnWebkitData(channel, data) {
   var funcargs;
   var rettype;
   var desc;
+  var is_static;
+  var fieldname;
+  var inheritance;
     
   if (channel == "Framework Scraper Load Url") {
     var i = Pos(":", data);
@@ -76,7 +80,8 @@ function OnWebkitData(channel, data) {
     if (RegexMatchAll(data, "<\\|\\|\\|>(.*?)<\\|\\|\\|>", True, matches, poses)) {
       classname = _v(matches, [0, 1]);
       desc      = _v(matches, [1, 1]);
-      AutoCompleteLibrary.AddPHPEntry(LibName, pitClass, classname, desc, "", pscUnknown, False, "", "", "");
+      inheritance = _v(matches, [2, 1]);
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitClass, classname, desc, inheritance, pscUnknown, False, "", "", "");
       
     } else {
       alert("not found " + data);
@@ -101,7 +106,21 @@ function OnWebkitData(channel, data) {
       funcargs  = _v(matches, [2, 1]);
       rettype   = _v(matches, [3, 1]);
       desc      = _v(matches, [4, 1]);
-      AutoCompleteLibrary.AddPHPEntry(LibName, pitFunction, funcname, desc, "", pscUnknown, False, funcargs, classname, rettype);
+      is_static = (_v(matches, [5, 1]) == "1");
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitFunction, funcname, desc, "", pscUnknown, is_static, funcargs, classname, rettype);
+      
+    } else {
+      alert("not found " + data);
+    }
+  } else if (channel == "Framework Scraper Add Field") {
+    
+    if (RegexMatchAll(data, "<\\|\\|\\|>(.*?)<\\|\\|\\|>", True, matches, poses)) {
+      classname = _v(matches, [0, 1])
+      fieldname = _v(matches, [1, 1]);
+      rettype   = _v(matches, [2, 1]);
+      desc      = _v(matches, [3, 1]);
+      is_static = (_v(matches, [4, 1]) == "1");
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitProperty, fieldname, desc, "", pscUnknown, is_static, "", classname, rettype);
       
     } else {
       alert("not found " + data);
@@ -190,8 +209,30 @@ function DeleteZend(Sender) {
   AutoCompleteLibrary.DeleteLibrary("Zend Framework");
 }
 
+function ScrapeCakePHP(Sender) {
+  LibName = "CakePHP";
+
+  AutoCompleteLibrary.DeleteLibrary(LibName);
+  AutoCompleteLibrary.AddPHPLibrary(LibName);
+  
+  
+  //UrlQueue.Add("http://api.cakephp.org/2.5/class-CakeTestModel.html");
+  //ScriptQueue.Add("cakephp_class.js");
+  UrlQueue.Add("http://api.cakephp.org/2.5/");
+  ScriptQueue.Add("cakephp_class_func_list.js");
+  
+  CreateWebkit(&DoStartScraping);
+  
+}
+
+function DeleteCakePHP(Sender) {
+  AutoCompleteLibrary.DeleteLibrary("CakePHP");
+}
+
 Script.RegisterAction("Scrape Frameworks", "Scrape Wordpress", "", &ScrapeWordpress);
 Script.RegisterAction("Scrape Frameworks", "Delete Wordpress", "", &DeleteWordpress);
 Script.RegisterAction("Scrape Frameworks", "Scrape Zend Framework", "", &ScrapeZend);
 Script.RegisterAction("Scrape Frameworks", "Delete Zend Framework", "", &DeleteZend);
+Script.RegisterAction("Scrape Frameworks", "Scrape CakePHP", "", &ScrapeCakePHP);
+Script.RegisterAction("Scrape Frameworks", "Delete CakePHP", "", &DeleteCakePHP);
 

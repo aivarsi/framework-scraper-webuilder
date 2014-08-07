@@ -8,4 +8,4 @@ var desc = jQuery('article section.description p').text();
 var fnNameRegex = /^(.*?) /;
 var clparts = cl.match(fnNameRegex);
 
-WeBuilderData.SendSafe('Framework Scraper Add Class', "<|||>" + clparts[1] + "<|||><|||>" + desc + "<|||>");
+WeBuilderData.SendSafe('Framework Scraper Add Class', "<|||>" + clparts[1] + "<|||><|||>" + desc + "<|||><|||>" + "" + "<|||>");
