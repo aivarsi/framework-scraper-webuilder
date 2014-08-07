@@ -34,7 +34,7 @@ function CreateWebkit(Callback) {
 
    if (win == null) {
      win = new TForm(WeBuilder);
-     win.width = 600;
+     win.width = 800;
      win.Height = 600;
      win.Caption = "Browser";
      web = Script.CreateScriptableWebKit(win, "", &OnWebkitCreated);
@@ -117,7 +117,9 @@ function OnWebkitLoadEnd(Sender, Browser, Frame, Status, Res) {
 }
 
 function OnWebkitConsoleMessage(Sender, browser, message, source, line, Res) {
-  alert(_t(line) + ":" + source + ":" + message);
+  if (pos("Viewport argument value", message) == 0) { //do not display these messages coming from Zend documentation
+    alert(_t(line) + ":" + source + ":" + message);
+  }
 }
 
 
@@ -168,6 +170,28 @@ function DeleteWordpress(Sender) {
   AutoCompleteLibrary.DeleteLibrary("Wordpress");
 }
 
+function ScrapeZend(Sender) {
+  LibName = "Zend Framework";
+
+  AutoCompleteLibrary.DeleteLibrary(LibName);
+  AutoCompleteLibrary.AddPHPLibrary(LibName);
+  
+  
+  //UrlQueue.Add("http://localhost/ZendFramework-2.3.1-apidoc/classes/Zend.Barcode.Barcode.html");
+  //ScriptQueue.Add("zend_class.js");
+  UrlQueue.Add("http://localhost/ZendFramework-2.3.1-apidoc/packages/Default.html");
+  ScriptQueue.Add("zend_class_list.js");
+  
+  CreateWebkit(&DoStartScraping);
+  
+}
+
+function DeleteZend(Sender) {
+  AutoCompleteLibrary.DeleteLibrary("Zend Framework");
+}
+
 Script.RegisterAction("Scrape Frameworks", "Scrape Wordpress", "", &ScrapeWordpress);
 Script.RegisterAction("Scrape Frameworks", "Delete Wordpress", "", &DeleteWordpress);
+Script.RegisterAction("Scrape Frameworks", "Scrape Zend Framework", "", &ScrapeZend);
+Script.RegisterAction("Scrape Frameworks", "Delete Zend Framework", "", &DeleteZend);
 
