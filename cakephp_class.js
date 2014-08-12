@@ -1,11 +1,3 @@
-String.prototype.normalize_spaces = function() {
-  return this.replace(/\s+/g, ' ');
-};
-
-String.prototype.remove_spaces = function() {
-  return this.replace(/\s+/g, '');
-};
-
 var cl = jQuery('div#elements li.active').text();
 var desc = jQuery('div#content div.description p').first().text();
 var inheritance = "";

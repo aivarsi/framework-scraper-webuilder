@@ -145,6 +145,8 @@ function OnWebkitConsoleMessage(Sender, browser, message, source, line, Res) {
 
 function DoStartScraping() {
   SL = new TStringList;
+  SL.LoadFromFile(Script.GetPath + "func.js");
+  web.ExecuteJavaScript(SL.text);
   SL.LoadFromFile(Script.GetPath + ScriptToExecute);
   web.ExecuteJavaScript(SL.text);
   delete SL;
@@ -229,10 +231,32 @@ function DeleteCakePHP(Sender) {
   AutoCompleteLibrary.DeleteLibrary("CakePHP");
 }
 
+function ScrapeLaravel(Sender) {
+  LibName = "Laravel";
+
+  AutoCompleteLibrary.DeleteLibrary(LibName);
+  AutoCompleteLibrary.AddPHPLibrary(LibName);
+  
+  
+  //UrlQueue.Add("http://laravel.com/api/4.2/Illuminate/Database/Query/Builder.html");
+  //ScriptQueue.Add("laravel_class.js");
+  UrlQueue.Add("http://laravel.com/api/4.2/classes.html");
+  ScriptQueue.Add("laravel_class_list.js");
+  
+  CreateWebkit(&DoStartScraping);
+  
+}
+
+function DeleteLaravel(Sender) {
+  AutoCompleteLibrary.DeleteLibrary("Laravel");
+}
+
 Script.RegisterAction("Scrape Frameworks", "Scrape Wordpress", "", &ScrapeWordpress);
 Script.RegisterAction("Scrape Frameworks", "Delete Wordpress", "", &DeleteWordpress);
 Script.RegisterAction("Scrape Frameworks", "Scrape Zend Framework", "", &ScrapeZend);
 Script.RegisterAction("Scrape Frameworks", "Delete Zend Framework", "", &DeleteZend);
 Script.RegisterAction("Scrape Frameworks", "Scrape CakePHP", "", &ScrapeCakePHP);
 Script.RegisterAction("Scrape Frameworks", "Delete CakePHP", "", &DeleteCakePHP);
+Script.RegisterAction("Scrape Frameworks", "Scrape Laravel", "", &ScrapeLaravel);
+Script.RegisterAction("Scrape Frameworks", "Delete Laravel", "", &DeleteLaravel);
 
