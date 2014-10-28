@@ -23,7 +23,7 @@ for (var key in inh) {
   inheritance += inh[key];
 }
 
-WeBuilderData.SendSafe('Framework Scraper Add Class', "<|||>" + cl + "<|||><|||>" + desc + "<|||><|||>" + inheritance + "<|||>");
+WeBuilderAddClass(cl, desc, inheritance);
 
 jQuery('table#methods tr').each(function(i) {
   var scope = jQuery(this).find('td.name span.label').text().trim();
@@ -47,8 +47,8 @@ jQuery('table#methods tr').each(function(i) {
     if (scope.indexOf("static") > -1) {
       is_static = "1";
     }
-    
-    WeBuilderData.SendSafe('Framework Scraper Add Method', "<|||>" + cl + "<|||><|||>" + funcname + "<|||><|||>" + funcargs[0] + "<|||><|||>" + funcres + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
+
+    WeBuilderAddMethod(cl, funcname, funcargs[0], funcres, desc, is_static);
   }
 });
 
@@ -67,7 +67,7 @@ jQuery('table#properties tr').each(function(i) {
     if (scope.indexOf("static") > -1) {
       is_static = "1";
     }
-    
-    WeBuilderData.SendSafe('Framework Scraper Add Field', "<|||>" + cl + "<|||><|||>" + fieldname + "<|||><|||>" + fieldtype + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
+
+    WeBuilderAddProperty(cl, fieldname, fieldtype, desc, is_static);
   }
 });

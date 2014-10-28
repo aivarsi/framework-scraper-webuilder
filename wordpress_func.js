@@ -7,5 +7,5 @@ var fnArgsRegex = /\(.*\)/;
 var funcparts = func.match(fnNameRegex);
 var funcargs = func.match(fnArgsRegex);
 
-WeBuilderData.SendSafe('Framework Scraper Add Func', "<|||>" + funcparts[1] + "<|||><|||>" + funcargs[0] + "<|||><|||>" + ret + "<|||><|||>" + desc + "<|||>");
+WeBuilderAddFunction(funcparts[1], funcargs[0], ret, desc);
 

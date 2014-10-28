@@ -18,5 +18,5 @@ jQuery('div#content div.section:contains("Parameters summary") table.summary tr'
 
 args = "(" + args + ")";
 
-WeBuilderData.SendSafe('Framework Scraper Add Func', "<|||>" + func + "<|||><|||>" + args + "<|||><|||>" + ret + "<|||><|||>" + desc + "<|||>");
+WeBuilderAddFunction(func, args, ret, desc);
 

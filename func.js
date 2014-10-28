@@ -20,11 +20,11 @@ function _NormalizeType(restype) {
 }
 
 function WeBuilderExtract(scriptname, url) {
-  WeBuilderData.SendSafe('Framework Scraper Load Url', scriptname + ":" + url.trim());
+  WeBuilderData.Send('Framework Scraper Load Url', scriptname + ":" + url.trim());
 }
 
 function WeBuilderAddClass(cl, desc, inherits) {
-  WeBuilderData.SendSafe('Framework Scraper Add Class', "<|||>" + cl + "<|||><|||>" + desc + "<|||><|||>" + inherits + "<|||>");
+  WeBuilderData.Send('Framework Scraper Add Class', "<|||>" + cl + "<|||><|||>" + desc + "<|||><|||>" + inherits + "<|||>");
 }
 
 function WeBuilderAddMethod(cl, funcname, funcargs, restype, desc, is_static) {
@@ -34,7 +34,7 @@ function WeBuilderAddMethod(cl, funcname, funcargs, restype, desc, is_static) {
     is_static = "0";
   }
   restype = _NormalizeType(restype);
-  WeBuilderData.SendSafe('Framework Scraper Add Method', "<|||>" + cl + "<|||><|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
+  WeBuilderData.Send('Framework Scraper Add Method', "<|||>" + cl + "<|||><|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
 }
 
 function WeBuilderAddProperty(cl, fieldname, fieldtype, desc, is_static) {
@@ -44,10 +44,21 @@ function WeBuilderAddProperty(cl, fieldname, fieldtype, desc, is_static) {
     is_static = "0";
   }
   fieldtype = _NormalizeType(fieldtype);
-  WeBuilderData.SendSafe('Framework Scraper Add Field', "<|||>" + cl + "<|||><|||>" + fieldname + "<|||><|||>" + fieldtype + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
+  WeBuilderData.Send('Framework Scraper Add Field', "<|||>" + cl + "<|||><|||>" + fieldname + "<|||><|||>" + fieldtype + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
 }
 
 function WeBuilderAddFunction(funcname, funcargs, restype, desc) {
   restype = _NormalizeType(restype);
-  WeBuilderData.SendSafe('Framework Scraper Add Func', "<|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||>");
+  WeBuilderData.Send('Framework Scraper Add Func', "<|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||>");
 }
+
+function WeBuilderAddPHPBuiltInMethod(cl, funcname, funcsignature) {
+  WeBuilderData.Send('Framework Scraper Add PHP Built In Method', "<|||>" + cl + "<|||><|||>" + funcname + "<|||><|||>" + funcsignature + "<|||>");
+}
+
+
+function WeBuilderAddPHPBuiltInFunction(funcname, funcargs, restype, desc) {
+  restype = _NormalizeType(restype);
+  WeBuilderData.Send('Framework Scraper Add PHP Built In Func', "<|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||>");
+}
+
