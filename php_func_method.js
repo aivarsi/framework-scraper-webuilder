@@ -13,10 +13,37 @@ jquery_script.onload = function() {
 
   //process class
   
-  //find no more than one class method
-  var matches = jQuery("div.description div.methodsynopsis:contains(::), div.description div.constructorsynopsis:contains(::)").last();
-  //and no more than one function
-  matches = matches.add(jQuery("div.description div.methodsynopsis:not(:contains(::)), div.description div.constructorsynopsis:not(:contains(::))").last());
+  //find no more than one class method with most commas (most parameters)
+  var matches = jQuery();
+  var maxcommacount = -1;
+  var bestmatch = null;
+  jQuery("div.description div.methodsynopsis:contains(::), div.description div.constructorsynopsis:contains(::)").each(function() {
+    var funccall = $(this).text().trim().normalize_spaces();
+    var commacount = funccall.split(",").length - 1;
+    if (commacount > maxcommacount) {
+      bestmatch = this;
+      maxcommacount = commacount;
+    }
+  });
+  if (bestmatch) {
+    matches = matches.add(bestmatch);    
+  }
+  //and no more than one function with most commas
+  maxcommacount = -1;
+  bestmatch = null;
+  jQuery("div.description div.methodsynopsis:not(:contains(::)), div.description div.constructorsynopsis:not(:contains(::))").each(function() {
+    var funccall = $(this).text().trim().normalize_spaces();
+    var commacount = funccall.split(",").length - 1;
+    if (commacount > maxcommacount) {
+      bestmatch = this;
+      maxcommacount = commacount;
+    }
+  });
+  if (bestmatch) {    
+    matches = matches.add(bestmatch);
+  }
+  
+
   matches.each(function() {
     var synopsis = $(this);
     var funccall = synopsis.text().trim().normalize_spaces();
