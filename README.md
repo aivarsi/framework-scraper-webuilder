@@ -11,7 +11,7 @@ of frameworks.
 
 Supports following frameworks:
 
-  - Wordpress
+  - WordPress
   - Zend Framework
   - CakePHP
   - Laravel
@@ -86,7 +86,7 @@ jquery_script.onload = function() {
 }
 ```
 
-Don't forget to restart the editor after scraping to have all new scraped classes, class atributes and functions available in auto-complete and Langauge Browser.
+Don't forget to restart the editor after scraping to have all new scraped classes, class attributes and functions available in auto-complete and Language Browser.
 
 ## Sample scraper
 
