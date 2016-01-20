@@ -15,6 +15,10 @@ String.prototype.remove_spaces = function() {
   return this.replace(/\s+/g, '');
 };
 
+String.prototype.startsWith = function(prefix) {
+    return this.slice(0, prefix.length) == prefix;
+}
+
 function _NormalizeType(restype) {
   return restype.normalize_spaces().split("|").join("/");
 }
@@ -23,8 +27,17 @@ function WeBuilderExtract(scriptname, url) {
   WeBuilderData.Send('Framework Scraper Load Url', scriptname + ":" + url.trim());
 }
 
-function WeBuilderAddClass(cl, desc, inherits) {
-  WeBuilderData.Send('Framework Scraper Add Class', "<|||>" + cl + "<|||><|||>" + desc + "<|||><|||>" + inherits + "<|||>");
+function WeBuilderAddClass(cl, desc, inherits, classextends, is_static) {
+  if (is_static === true) {
+    is_static = "1";
+  } else if (is_static === false) {
+    is_static = "0";
+  }
+  WeBuilderData.Send('Framework Scraper Add Class', "<|||>" + cl + "<|||><|||>" + desc + "<|||><|||>" + inherits + "<|||><|||>" + classextends + "<|||><|||>" + is_static + "<|||>");
+}
+
+function WeBuilderAddTrait(cl, desc, inherits, classextends) {
+  WeBuilderData.Send('Framework Scraper Add Trait', "<|||>" + cl + "<|||><|||>" + desc + "<|||><|||>" + inherits + "<|||><|||>" + classextends + "<|||><|||>" + "0" + "<|||>");
 }
 
 function WeBuilderAddMethod(cl, funcname, funcargs, restype, desc, is_static) {

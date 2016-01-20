@@ -62,6 +62,7 @@ function CreateWebkit(Callback) {
     web.Subscribe("Framework Scraper Load Url", &OnWebkitData);
     web.Subscribe("Framework Scraper Add Func", &OnWebkitData);
     web.Subscribe("Framework Scraper Add Class", &OnWebkitData);
+    web.Subscribe("Framework Scraper Add Trait", &OnWebkitData);
     web.Subscribe("Framework Scraper Add Method", &OnWebkitData);
     web.Subscribe("Framework Scraper Add Field", &OnWebkitData);
     web.Subscribe("Framework Scraper Add PHP Built In Method", &OnWebkitData);
@@ -92,6 +93,9 @@ function OnWebkitData(channel, data) {
   var is_static;
   var fieldname;
   var inheritance;
+  var scope;
+  
+  //Script.Message(data + " (" + channel + ")");
     
   if (channel == "Framework Scraper Load Url") {
     var i = Pos(":", data);
@@ -103,13 +107,20 @@ function OnWebkitData(channel, data) {
       ScriptQueue.Add(js);
 
     }
-  } else if (channel == "Framework Scraper Add Class") {
+  } else if ((channel == "Framework Scraper Add Class") || (channel == "Framework Scraper Add Trait")) {
     
     if (RegexMatchAll(data, "<\\|\\|\\|>(.*?)<\\|\\|\\|>", True, matches, poses)) {
-      classname = _v(matches, [0, 1]);
-      desc      = _v(matches, [1, 1]);
-      inheritance = _v(matches, [2, 1]);
-      AutoCompleteLibrary.AddPHPEntry(LibName, pitClass, classname, desc, inheritance, pscUnknown, False, "", "", "");
+      classname     = _v(matches, [0, 1]);
+      desc          = _v(matches, [1, 1]);
+      inheritance   = _v(matches, [2, 1]);
+      classextends  = _v(matches, [3, 1]);
+      is_static     = (_v(matches, [4, 1]) == "1");
+      if (channel == "Framework Scraper Add Class") {
+        scope = pscUnknown;
+      } else {
+        scope = pscTrait;
+      }
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitClass, classname, desc, inheritance, scope, is_static, "", "", classextends, "");
       
     } else {
       alert("not found " + data);
@@ -121,7 +132,7 @@ function OnWebkitData(channel, data) {
       funcargs = _v(matches, [1, 1]);
       rettype  = _v(matches, [2, 1]);
       desc     = _v(matches, [3, 1]);
-      AutoCompleteLibrary.AddPHPEntry(LibName, pitFunction, funcname, desc, "", pscUnknown, False, funcargs, "", rettype);
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitFunction, funcname, desc, "", pscUnknown, False, funcargs, "", "", rettype);
       
     } else {
       alert("not found " + data);
@@ -135,7 +146,7 @@ function OnWebkitData(channel, data) {
       rettype   = _v(matches, [3, 1]);
       desc      = _v(matches, [4, 1]);
       is_static = (_v(matches, [5, 1]) == "1");
-      AutoCompleteLibrary.AddPHPEntry(LibName, pitFunction, funcname, desc, "", pscUnknown, is_static, funcargs, classname, rettype);
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitFunction, funcname, desc, "", pscUnknown, is_static, funcargs, classname, "", rettype);
       
     } else {
       alert("not found " + data);
@@ -148,7 +159,7 @@ function OnWebkitData(channel, data) {
       rettype   = _v(matches, [2, 1]);
       desc      = _v(matches, [3, 1]);
       is_static = (_v(matches, [4, 1]) == "1");
-      AutoCompleteLibrary.AddPHPEntry(LibName, pitProperty, fieldname, desc, "", pscUnknown, is_static, "", classname, rettype);
+      AutoCompleteLibrary.AddPHPEntry(LibName, pitProperty, fieldname, desc, "", pscUnknown, is_static, "", classname, "", rettype);
       
     } else {
       alert("not found " + data);
@@ -333,9 +344,9 @@ function ScrapeLaravel(Sender) {
   AutoCompleteLibrary.AddPHPLibrary(LibName);
   
   
-  //UrlQueue.Add("http://laravel.com/api/4.2/Illuminate/Database/Query/Builder.html");
-  //ScriptQueue.Add("laravel_class.js");
-  UrlQueue.Add("http://laravel.com/api/4.2/classes.html");
+//  UrlQueue.Add("https://laravel.com/api/5.2/Illuminate/Routing/Router.html");
+//  ScriptQueue.Add("laravel_class.js");
+  UrlQueue.Add("https://laravel.com/api/5.2/classes.html");
   ScriptQueue.Add("laravel_class_list.js");
   
   CreateWebkit(&DoStartScraping);
