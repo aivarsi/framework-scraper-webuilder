@@ -112,7 +112,11 @@ jQuery('h2:contains("Methods")').next('div').find('div.row').each(function(i) {
     var funcargs = func.match(fnArgsRegex);
 
     
-    var funcres = jQuery(this).find('div.col-md-2.type').text().trim();
+    var ret_td = jQuery(this).find('div.col-md-2.type').clone();
+    ret_td.find('a abbr').each(function(i) {
+      jQuery(this).html(jQuery(this).attr('title'));
+    });
+    var funcres = ret_td.text().trim();
     
     var is_static = funcres.startsWith('static');
     if (is_static) {
