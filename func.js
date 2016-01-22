@@ -47,6 +47,7 @@ function WeBuilderAddMethod(cl, funcname, funcargs, restype, desc, is_static) {
     is_static = "0";
   }
   restype = _NormalizeType(restype);
+  funcargs = _NormalizeType(funcargs);
   WeBuilderData.Send('Framework Scraper Add Method', "<|||>" + cl + "<|||><|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||><|||>" + is_static + "<|||>");
 }
 
@@ -62,6 +63,7 @@ function WeBuilderAddProperty(cl, fieldname, fieldtype, desc, is_static) {
 
 function WeBuilderAddFunction(funcname, funcargs, restype, desc) {
   restype = _NormalizeType(restype);
+  funcargs = _NormalizeType(funcargs);
   WeBuilderData.Send('Framework Scraper Add Func', "<|||>" + funcname + "<|||><|||>" + funcargs + "<|||><|||>" + restype + "<|||><|||>" + desc + "<|||>");
 }
 

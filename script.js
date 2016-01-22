@@ -278,6 +278,9 @@ function OnExit() {
 
 function ScrapeWordpress(Sender) {
   LibName = "Wordpress";
+  AutoCompleteLibrary.DeleteLibrary(LibName);  
+  
+  LibName = "WordPress";
 
   AutoCompleteLibrary.DeleteLibrary(LibName);
   AutoCompleteLibrary.AddPHPLibrary(LibName);
@@ -288,7 +291,7 @@ function ScrapeWordpress(Sender) {
   //scrape all classes
   UrlQueue.Add("https://developer.wordpress.org/reference/classes/");
   ScriptQueue.Add("wordpress_class_list.js");
-  
+
   CreateWebkit(&DoStartScraping);
   
 }
