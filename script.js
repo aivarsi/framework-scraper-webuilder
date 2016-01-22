@@ -307,9 +307,9 @@ function ScrapeZend(Sender) {
   AutoCompleteLibrary.AddPHPLibrary(LibName);
   
   
-  //UrlQueue.Add("http://localhost/ZendFramework-2.3.1-apidoc/classes/Zend.Barcode.Barcode.html");
+  //UrlQueue.Add("http://localhost/ZendFramework-2.4.9-apidoc/classes/Zend.Uri.File.html");
   //ScriptQueue.Add("zend_class.js");
-  UrlQueue.Add("http://localhost/ZendFramework-2.3.1-apidoc/packages/Default.html");
+  UrlQueue.Add("http://localhost/ZendFramework-2.4.9-apidoc/packages/Default.html");
   ScriptQueue.Add("zend_class_list.js");
   
   CreateWebkit(&DoStartScraping);
