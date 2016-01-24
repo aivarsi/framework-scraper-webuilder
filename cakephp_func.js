@@ -1,6 +1,6 @@
 var func = jQuery('div#elements li.active').text();
-var desc = jQuery('div#content div.description p').text();
-var ret = jQuery('div#content div.section:contains("Return value summary") span.name').first().text().trim();
+var desc = jQuery('div#content div.description p').first().text();
+var ret = jQuery('div#content div.section:contains("Returns") span.name').first().text().trim();
 
 var args = "";
 
