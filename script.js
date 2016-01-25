@@ -382,6 +382,26 @@ function DeleteYii(Sender) {
   AutoCompleteLibrary.DeleteLibrary("Yii");
 }
 
+function ScrapeNette(Sender) {
+  LibName = "Nette";
+
+  AutoCompleteLibrary.DeleteLibrary(LibName);
+  AutoCompleteLibrary.AddPHPLibrary(LibName);
+  
+  
+  //UrlQueue.Add("https://api.nette.org/2.3.8/Nette.Forms.Form.html");
+  //ScriptQueue.Add("nette_class.js");
+  UrlQueue.Add("https://api.nette.org/2.3.8/");
+  ScriptQueue.Add("nette_class_list.js");
+  
+  CreateWebkit(&DoStartScraping);
+  
+}
+
+function DeleteNette(Sender) {
+  AutoCompleteLibrary.DeleteLibrary("Nette");
+}
+
 function ScrapePHP(Sender) {
 
   if (confirm("PHP Documentation scraper will create INI files with standard function and object reference. You will need to copy them to WeBuilder or Rapid PHP folder manually after the scraping has finished.\nDo you want to continue?")) {
@@ -452,6 +472,8 @@ Script.RegisterAction("Scrape Frameworks", "Scrape Laravel", "", &ScrapeLaravel)
 Script.RegisterAction("Scrape Frameworks", "Delete Laravel", "", &DeleteLaravel);
 Script.RegisterAction("Scrape Frameworks", "Scrape Yii", "", &ScrapeYii);
 Script.RegisterAction("Scrape Frameworks", "Delete Yii", "", &DeleteYii);
+Script.RegisterAction("Scrape Frameworks", "Scrape Nette", "", &ScrapeNette);
+Script.RegisterAction("Scrape Frameworks", "Delete Nette", "", &DeleteNette);
 Script.RegisterAction("Scrape Frameworks", "Scrape PHP documentation", "", &ScrapePHP);
 
 Script.ConnectSignal("exit", &OnExit);
