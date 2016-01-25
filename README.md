@@ -1,4 +1,4 @@
-Framework scraper plugin for Webuilder/RapidPHP 2015
+Framework scraper plugin for Webuilder/RapidPHP 2016
 ====================================================
 
 This is Framework Scraper plugin for following editors:
@@ -15,6 +15,7 @@ Supports following frameworks:
   - Zend Framework
   - CakePHP
   - Laravel
+  - Yii
 
 Also scrapes PHP built-in documentation.
 
