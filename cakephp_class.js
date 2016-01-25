@@ -4,6 +4,7 @@ cl = clparts[1];
 var desc = jQuery('div#content div.description p').first().text();
 var inheritance = "";
 var inh = {};
+var is_static = false;
 
 jQuery('div #content div.section h2:contains("Methods inherited from ") a, div #content div.section h2:contains("Properties inherited from ") a').each(function(i) {
   var parentclass = jQuery(this).text();
@@ -18,6 +19,10 @@ jQuery('div #content div.section h2:contains("Methods inherited from ") a, div #
   }
 });
 
+if (jQuery('h3.method-name span.label:contains("static")').length) {
+  is_static = true;
+}
+
 for (var key in inh) {
   if (inheritance) {
     inheritance += ";";
@@ -25,12 +30,12 @@ for (var key in inh) {
   inheritance += inh[key];
 }
 
-WeBuilderAddClass(cl, desc, inheritance, "", false);
+WeBuilderAddClass(cl, desc, inheritance, "", is_static);
 
 jQuery('div.method-detail').each(function(i) {
   var scope = jQuery(this).find('h3.method-name span.label').text().trim();
   if (scope.indexOf("public") > -1 || scope == "") {
-    var desc = jQuery(this).find('div.description p').text().normalize_spaces();
+    var desc = jQuery(this).find('div.description p').first().text().normalize_spaces();
     var funcname = jQuery(this).find('h3.method-name a').first().text().trim();
     var func = jQuery(this).find('p.method-signature').text().normalize_spaces();
     

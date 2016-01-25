@@ -327,7 +327,7 @@ function ScrapeCakePHP(Sender) {
   AutoCompleteLibrary.AddPHPLibrary(LibName);
   
   
-  //UrlQueue.Add("http://api.cakephp.org/3.1/class-Cake.Shell.RoutesShell.html");
+  //UrlQueue.Add("http://api.cakephp.org/3.2/class-Cake.Routing.Router.html");
   //ScriptQueue.Add("cakephp_class.js");
   //UrlQueue.Add("http://api.cakephp.org/3.1/function-collection.html");
   //ScriptQueue.Add("cakephp_func.js");
