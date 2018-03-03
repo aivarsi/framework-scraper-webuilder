@@ -327,11 +327,11 @@ function ScrapeCakePHP(Sender) {
   AutoCompleteLibrary.AddPHPLibrary(LibName);
   
   
-  //UrlQueue.Add("http://api.cakephp.org/3.2/class-Cake.Routing.Router.html");
+  //UrlQueue.Add("https://api.cakephp.org/3.5/class-Cake.Auth.BasicAuthenticate.html");
   //ScriptQueue.Add("cakephp_class.js");
   //UrlQueue.Add("http://api.cakephp.org/3.1/function-collection.html");
   //ScriptQueue.Add("cakephp_func.js");
-  UrlQueue.Add("http://api.cakephp.org/3.2/");
+  UrlQueue.Add("https://api.cakephp.org/3.5/");
   ScriptQueue.Add("cakephp_class_func_list.js");
   
   CreateWebkit(&DoStartScraping);
@@ -407,6 +407,8 @@ function ScrapePHP(Sender) {
   if (confirm("PHP Documentation scraper will create INI files with standard function and object reference. You will need to copy them to WeBuilder or Rapid PHP folder manually after the scraping has finished.\nDo you want to continue?")) {
 
     CallbackOnQueueEmpty = &PhpScrapingFinished;
+    
+    //download PHP documentation from http://www.php.net/get/php_manual_en.tar.gz/from/a/mirror and host it locally for scraping
     
 //    UrlQueue.Add("http://localhost/php-chunked-xhtml/mysqli.autocommit.html");
 //    ScriptQueue.Add("php_func_method.js");

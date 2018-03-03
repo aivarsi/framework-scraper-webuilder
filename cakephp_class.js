@@ -37,6 +37,7 @@ jQuery('div.method-detail').each(function(i) {
   if (scope.indexOf("public") > -1 || scope == "") {
     var desc = jQuery(this).find('div.description p').first().text().normalize_spaces();
     var funcname = jQuery(this).find('h3.method-name a').first().text().trim();
+    funcname = funcname.replace(/[\(\)]+$/, '');
     var func = jQuery(this).find('p.method-signature').text().normalize_spaces();
     
     var fnArgsRegex = /\(.*\)/;
@@ -45,7 +46,10 @@ jQuery('div.method-detail').each(function(i) {
     
     var href = jQuery(this).find('td a').attr('href');
     
-    var funcres = jQuery(this).find('h6:contains("Returns")').nextAll('div.list').find('code').first().text().normalize_spaces();
+    var funcres = jQuery(this).find('h6:contains("Returns")').next('div.list').contents().first().text().trim().normalize_spaces();
+    if (funcres == '') {
+      funcres = jQuery(this).find('h6:contains("Returns")').nextAll('div.list').find('code').first().text().normalize_spaces();
+    }
     
     var is_static = "0";
     if (scope.indexOf("static") > -1) {
