@@ -215,9 +215,9 @@ function OnWebkitConsoleMessage(Sender, browser, message, source, line, Res) {
 
 function DoStartScraping() {
   SL = new TStringList;
-  SL.LoadFromFile(Script.GetPath + "func.js");
+  SL.LoadFromFileWithEncoding(Script.GetPath + "func.js", enUtf8NoBom);
   SL2 = new TStringList;
-  SL2.LoadFromFile(Script.GetPath + ScriptToExecute);
+  SL2.LoadFromFileWithEncoding(Script.GetPath + ScriptToExecute, enUtf8NoBom);
   
   SL.Text = SL.Text + SL2.Text;
   web.ExecuteJavaScript(SL.text);
@@ -351,7 +351,7 @@ function ScrapeLaravel(Sender) {
   
 //  UrlQueue.Add("https://laravel.com/api/5.2/Illuminate/Routing/Router.html");
 //  ScriptQueue.Add("laravel_class.js");
-  UrlQueue.Add("https://laravel.com/api/5.2/classes.html");
+  UrlQueue.Add("https://laravel.com/api/5.6/classes.html");
   ScriptQueue.Add("laravel_class_list.js");
   
   CreateWebkit(&DoStartScraping);
@@ -400,6 +400,45 @@ function ScrapeNette(Sender) {
 
 function DeleteNette(Sender) {
   AutoCompleteLibrary.DeleteLibrary("Nette");
+}
+
+function ScrapeCI(Sender) {
+  LibName = "CodeIgniter";
+
+  AutoCompleteLibrary.DeleteLibrary(LibName);
+  AutoCompleteLibrary.AddPHPLibrary(LibName);
+  
+  //CodeIgniter documentation prepared with PhpDocumentor and hosted locally for scraping
+  
+  //UrlQueue.Add("http://192.168.0.102/codeigniter_doc/classes/CI_Loader.html");
+  //ScriptQueue.Add("codeigniter_class.js");
+  UrlQueue.Add("http://192.168.0.102/codeigniter_doc/");
+  ScriptQueue.Add("codeigniter_class_func_list.js");
+  
+  CreateWebkit(&DoStartScraping);
+  
+}
+
+function DeleteCI(Sender) {
+  AutoCompleteLibrary.DeleteLibrary("CodeIgniter");
+}
+
+function ScrapeSymfony(Sender) {
+  LibName = "Symfony";
+
+  AutoCompleteLibrary.DeleteLibrary(LibName);
+  AutoCompleteLibrary.AddPHPLibrary(LibName);
+  
+  
+  UrlQueue.Add("http://api.symfony.com/4.0/classes.html");
+  ScriptQueue.Add("symfony_class_list.js");
+  
+  CreateWebkit(&DoStartScraping);
+  
+}
+
+function DeleteSymfony(Sender) {
+  AutoCompleteLibrary.DeleteLibrary("Symfony");
 }
 
 function ScrapePHP(Sender) {
@@ -476,6 +515,10 @@ Script.RegisterAction("Scrape Frameworks", "Scrape Yii", "", &ScrapeYii);
 Script.RegisterAction("Scrape Frameworks", "Delete Yii", "", &DeleteYii);
 Script.RegisterAction("Scrape Frameworks", "Scrape Nette", "", &ScrapeNette);
 Script.RegisterAction("Scrape Frameworks", "Delete Nette", "", &DeleteNette);
+Script.RegisterAction("Scrape Frameworks", "Scrape CodeIgniter", "", &ScrapeCI);
+Script.RegisterAction("Scrape Frameworks", "Delete CodeIgniter", "", &DeleteCI);
+Script.RegisterAction("Scrape Frameworks", "Scrape Symfony", "", &ScrapeSymfony);
+Script.RegisterAction("Scrape Frameworks", "Delete Symfony", "", &DeleteSymfony);
 Script.RegisterAction("Scrape Frameworks", "Scrape PHP documentation", "", &ScrapePHP);
 
 Script.ConnectSignal("exit", &OnExit);
