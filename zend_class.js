@@ -49,9 +49,12 @@ if (cl !== '') {
       var funcres = "";
       if (jQuery(this).find('h4:contains("Returns")').length) {
         if (jQuery(this).find('h4:contains("Returns")').next('a').length) {
-          funcres = jQuery(this).find('h4:contains("Returns")').next('a').text().replace(/[—]/g, '').trim().normalize_spaces().replace(/^\\/, '');
+          funcres = jQuery(this).find('h4:contains("Returns")').next('a').text().replace(/[â€”]/g, '').trim().normalize_spaces().replace(/^\\/, '');
         } else {
-          funcres = jQuery(this).find('h4:contains("Returns")').get(0).nextSibling.nodeValue.replace(/[—]/g, '').trim().normalize_spaces();
+          funcres = jQuery(this).find('h4:contains("Returns")').get(0).nextSibling.nodeValue.replace(/[â€”]/g, '').trim().normalize_spaces().replace(/^\\/, '');
+        }
+        if (funcres == 'self') {
+          funcres = cl;
         }
       }
       
@@ -73,9 +76,9 @@ if (cl !== '') {
       var fieldtype = "";
       if (jQuery(this).find('h4:contains("Type")').length) {
         if (jQuery(this).find('h4:contains("Type")').next('a').length) {
-          fieldtype = jQuery(this).find('h4:contains("Type")').next('a').text().replace(/[—]/g, '').trim().normalize_spaces().replace(/^\\/, '');
+          fieldtype = jQuery(this).find('h4:contains("Type")').next('a').text().replace(/[â€”]/g, '').trim().normalize_spaces().replace(/^\\/, '');
         } else {
-          fieldtype = jQuery(this).find('h4:contains("Type")').get(0).nextSibling.nodeValue.replace(/[—]/g, '').trim().normalize_spaces();
+          fieldtype = jQuery(this).find('h4:contains("Type")').get(0).nextSibling.nodeValue.replace(/[â€”]/g, '').trim().normalize_spaces().replace(/^\\/, '');
         }
       }
       
