@@ -302,14 +302,13 @@ function DeleteWordpress(Sender) {
 
 function ScrapeZend(Sender) {
   LibName = "Zend Framework";
+  
+  //Zend Framework documentation prepared with PhpDocumentor and hosted locally for scraping
 
   AutoCompleteLibrary.DeleteLibrary(LibName);
   AutoCompleteLibrary.AddPHPLibrary(LibName);
-  
-  
-  //UrlQueue.Add("http://localhost/ZendFramework-2.4.9-apidoc/classes/Zend.Uri.File.html");
-  //ScriptQueue.Add("zend_class.js");
-  UrlQueue.Add("http://localhost/ZendFramework-2.4.9-apidoc/packages/Default.html");
+    
+  UrlQueue.Add("http://192.168.0.102/zfdoc/classes/");
   ScriptQueue.Add("zend_class_list.js");
   
   CreateWebkit(&DoStartScraping);

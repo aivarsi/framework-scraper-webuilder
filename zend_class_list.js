@@ -1,5 +1,8 @@
-jQuery('div.package-indent h1 a').each(function(i) {
-    if (this.href.trim().indexOf('classes/Zend.Filter.Compress.Gz.html') == -1) {
-        WeBuilderExtract("zend_class.js", this.href.trim());
+jquery_script.onload = function() {
+
+  jQuery('body > table > tbody > tr > td > a').each(function(i) {
+    if (i > 0) { // 0 = Parent Directory
+      WeBuilderExtract("zend_class.js", this.href.trim());
     }
-});
+  });
+}
