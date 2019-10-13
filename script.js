@@ -1,4 +1,4 @@
-var QueueProcessInterval = 300;
+var QueueProcessInterval = 2000;
 var TimeReservedForScriptExecution = 150;
 
 var win = null;
@@ -348,9 +348,9 @@ function ScrapeLaravel(Sender) {
   AutoCompleteLibrary.AddPHPLibrary(LibName);
   
   
-//  UrlQueue.Add("https://laravel.com/api/5.2/Illuminate/Routing/Router.html");
-//  ScriptQueue.Add("laravel_class.js");
-  UrlQueue.Add("https://laravel.com/api/5.6/classes.html");
+  //UrlQueue.Add("https://laravel.com/api/6.x/Illuminate/Routing/Router.html");
+  //ScriptQueue.Add("laravel_class.js");
+  UrlQueue.Add("https://laravel.com/api/6.x/classes.html");
   ScriptQueue.Add("laravel_class_list.js");
   
   CreateWebkit(&DoStartScraping);

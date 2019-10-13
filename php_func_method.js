@@ -49,7 +49,7 @@ jquery_script.onload = function() {
     var funccall = synopsis.text().trim().normalize_spaces();
     var funcname = synopsis.find("span.methodname").text().remove_spaces();
     var funcdesc = jQuery("p.refpurpose span.dc-title").text().trim().normalize_spaces();
-    var restype =  synopsis.find("span.methodname").prev("span.type").text().remove_spaces();
+    var restype =  synopsis.children("span.type").last().text().remove_spaces();
     var className;
     
     var argsRegex = /\(.*\)/;
